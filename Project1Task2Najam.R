@@ -8,10 +8,10 @@ smoothed_data <- read_csv("all_households_smoothed.csv") %>%
   mutate(
     date = as.Date(date),
     day_of_year = yday(date),
-    summer_solstice = yday(as.Date("2019-06-21")),
+    march21 = yday(as.Date("2019-03-21")),
     
-    seasonal_sin = sin(2*pi*(day_of_year - summer_solstice)/365),
-    seasonal_cos = cos(2*pi*(day_of_year - summer_solstice)/365),
+    seasonal_sin = sin(2*pi*(day_of_year - march21)/365),
+    seasonal_cos = cos(2*pi*(day_of_year - march21)/365),
     
     household = as.factor(household),
     weekday = as.factor(weekdays(date))
@@ -51,5 +51,4 @@ noon <- aov(yb_12 ~ household + weekday + seasonal_sin, data = filtered_data)
 summary(noon)
 
 TukeyHSD(noon, which = "weekday")
-)
-)
+
